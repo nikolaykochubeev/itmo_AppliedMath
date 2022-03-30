@@ -10,14 +10,13 @@ class Optimization:
 
     def calculate_dichotomy(self):
         n = 0
-        epsilon = 1e-5
         a = self.a
         b = self.b
         f1 = self.function(a)
         f2 = self.function(b)
-        while (b - a) / 2 > epsilon:
-            x1 = (a + b) / 2 - epsilon / 2
-            x2 = (a + b) / 2 + epsilon / 2
+        while (b - a) / 2 > self.epsilon:
+            x1 = (a + b) / 2 - self.epsilon / 2
+            x2 = (a + b) / 2 + self.epsilon / 2
             if f1 < f2:
                 b = x2
                 f2 = self.function(b)
