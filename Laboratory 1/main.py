@@ -50,15 +50,15 @@ class Optimization:
         f3 = self.function(x3)
         while True:
             u = x2 - ((x2 - x1) ** 2 * (f2 - f3) - (x2 - x3) ** 2 * (f2 - f1)) / (
-                        2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1)))
+                    (x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))
             fu = self.function(u)
             if fu <= f2:
-                if u < x2:
-                    x3 = x2
-                    f3 = f2
-                else:
+                if u >= x2:
                     x1 = x2
                     f1 = f2
+                else:
+                    x3 = x2
+                    f3 = f2
                 x2 = u
                 f2 = fu
             else:
@@ -71,7 +71,7 @@ class Optimization:
             if abs(x_i - u) < self.epsilon:
                 break
             x_i = u
-            n = n + 1
+            n += 1
 
         print('x = ', u)
         print('f(x) = ', self.function(u))
