@@ -36,6 +36,33 @@ class Optimization:
         print('f(x) = ', self.function(x))
         print('n = ', n)
 
+    def calculate_golden_ratio(self):
+        n = 0
+        a = self.a
+        b = self.b
+        x1 = b - (b - a) / 1.618
+        x2 = a + (b - a) / 1.618
+        f1 = self.function(x1)
+        f2 = self.function(x2)
+        while (x2 - x1) / 2 > self.epsilon:
+            if f1 < f2:
+                b = x2
+                x2 = x1
+                x1 = a + (b - x2)
+                f2 = f1
+                f1 = self.function(x1)
+            else:
+                a = x1
+                x1 = x2
+                x2 = b - (x1 - a)
+                f1 = f2
+                f2 = self.function(x2)
+            n = n + 1
+        x = (a + b) / 2
+        print('x = ', x)
+        print('f(x) = ', self.function(x))
+        print('n = ', n)
+
     def calculate_parabola(self):
         x1 = self.a
         x3 = self.b
@@ -152,6 +179,7 @@ class Optimization:
 
 optimization = Optimization(lambda x: sin(x) * x ** 2, -3, -2, 1e-5)
 optimization.calculate_dichotomy()
+optimization.calculate_golden_ratio()
 optimization.calculate_parabola()
 optimization.calculate_brent_method()
 
