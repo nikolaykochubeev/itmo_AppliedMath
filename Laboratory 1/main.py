@@ -1,9 +1,6 @@
 from math import *
 
-import math
 import numpy as np
-import matplotlib.pyplot as plt
-from numpy.linalg.linalg import LinAlgError
 
 
 class Optimization:
