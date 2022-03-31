@@ -1,4 +1,4 @@
-from math import sin, log
+from math import sin
 
 import numpy as np
 from matplotlib import pyplot as plt
@@ -10,14 +10,13 @@ class Optimization:
         self.a = a
         self.b = b
         self.epsilon = epsilon
-        self.epsilons = [10e-5, 10e-4, 10e-3, 10e-2, 10e-1]
         self.ratio = 0.61803398874
         self.u = lambda x1, x2, x3, f1, f2, f3: x2 - ((x2 - x1) ** 2 * (f2 - f3) - (x2 - x3) ** 2 * (f2 - f1)) / (
                 2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) \
             if (2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) != 0 \
             else None
 
-    def plot(self):
+    def plot_function(self):
         vectorize_function = np.vectorize(self.function)
         array = np.linspace(self.a, self.b, 100)
         plt.title("sin(x) * x ** 2")
@@ -25,29 +24,6 @@ class Optimization:
         plt.ylabel("Y axis")
         plt.grid()
         plt.plot(array, vectorize_function(array))
-        plt.show()
-        dichotomy_iterations = []
-        golden_ratio_iterations = []
-        fibonacci_iterations = []
-        parabola_iterations = []
-        brent_iterations = []
-        for epsilon in self.epsilons:
-            self.epsilon = epsilon
-            dichotomy_iterations.append(optimization.calculate_dichotomy())
-            golden_ratio_iterations.append(optimization.calculate_golden_ratio())
-            fibonacci_iterations.append(optimization.calculate_fibonacci(25))
-            parabola_iterations.append(optimization.calculate_parabola())
-            brent_iterations.append(optimization.calculate_brent())
-        epsilons = [abs(log(i)) for i in self.epsilons]
-        plt.plot(epsilons, dichotomy_iterations)
-        plt.show()
-        plt.plot(epsilons, golden_ratio_iterations)
-        plt.show()
-        plt.plot(epsilons, fibonacci_iterations)
-        plt.show()
-        plt.plot(epsilons, parabola_iterations)
-        plt.show()
-        plt.plot(epsilons, brent_iterations)
         plt.show()
 
     @staticmethod
@@ -84,11 +60,9 @@ class Optimization:
             print(iterations, ': ', b - a, ' ', (b - a) / prev_length)
             prev_length = b - a
         x = (a + b) / 2
-        print(x)
-        return iterations
-        # print('x = ', x)
-        # print('f(x) = ', self.function(x))
-        # print('iterations = ', iterations, '\n')
+        print('x = ', x)
+        print('f(x) = ', self.function(x))
+        print('iterations = ', iterations, '\n')
 
     def calculate_golden_ratio(self):
         print('golden ratio method')
@@ -117,11 +91,9 @@ class Optimization:
             print(iterations, ': ', b - a, ' ', (b - a) / prev_length)
             prev_length = b - a
         x = (a + b) / 2
-        print(x)
-        return iterations
-        # print('x = ', x)
-        # print('f(x) = ', self.function(x))
-        # print('iterations = ', iterations, '\n')
+        print('x = ', x)
+        print('f(x) = ', self.function(x))
+        print('iterations = ', iterations, '\n')
 
     def calculate_fibonacci(self, n):
         print('fibonacci method')
@@ -152,11 +124,9 @@ class Optimization:
             print(iterations, ': ', b - a, ' ', (b - a) / prev_length)
             prev_length = b - a
         x = (a + b) / 2
-        print(x)
-        return iterations
-        # print('x = ', x)
-        # print('f(x) = ', self.function(x))
-        # print('iterations = ', iterations, '\n')
+        print('x = ', x)
+        print('f(x) = ', self.function(x))
+        print('iterations = ', iterations, '\n')
 
     def calculate_parabola(self):
         print('parabola method')
@@ -200,11 +170,10 @@ class Optimization:
                     f1 = fu
             u = self.u(x1, x2, x3, f1, f2, f3)
             fu = self.function(u)
-        print(u)
-        return iterations
-        # print('x = ', u)
-        # print('f(x) = ', self.function(u))
-        # print('iterations = ', iterations, '\n')
+
+        print('x = ', u)
+        print('f(x) = ', self.function(u))
+        print('iterations = ', iterations, '\n')
 
     def calculate_brent(self):
         print('brent combined method')
@@ -213,7 +182,7 @@ class Optimization:
         iterations = 0
         x = w = v = a + self.ratio * (b - a)
         d = e = b - a
-        prev_length = a - b
+        prev_length = 1
         fx = self.function(x)
         fw = self.function(x)
         fv = self.function(x)
@@ -258,17 +227,19 @@ class Optimization:
             w = x
             x = u
             iterations += 1
-        print(x)
-        return iterations
-        # print('x = ', x)
-        # print('f(x) = ', self.function(x))
-        # print('iterations = ', iterations, '\n')
+
+            print(iterations, ':  ', b - a, ' ', (b - a) / prev_length)
+            prev_length = b - a
+
+        print('x = ', x)
+        print('f(x) = ', self.function(x))
+        print('iterations = ', iterations, '\n')
 
 
 optimization = Optimization(lambda x: sin(x) * x ** 2, -3, -1, 1e-5)
-optimization.plot()
-# optimization.calculate_dichotomy()
-# optimization.calculate_golden_ratio()
-# optimization.calculate_fibonacci(25)
-# optimization.calculate_parabola()
-# optimization.calculate_brent()
+optimization.calculate_dichotomy()
+optimization.calculate_golden_ratio()
+optimization.calculate_fibonacci(25)
+optimization.calculate_parabola()
+optimization.calculate_brent()
+optimization.plot_function()
