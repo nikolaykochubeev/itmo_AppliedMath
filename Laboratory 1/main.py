@@ -11,7 +11,7 @@ class Optimization:
         self.u = lambda x1, x2, x3, f1, f2, f3: x2 - ((x2 - x1) ** 2 * (f2 - f3) - (x2 - x3) ** 2 * (f2 - f1)) / (
                 2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) \
             if (2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) != 0 \
-            else 'pass'
+            else None
 
     @staticmethod
     def get_fibonacci_sequence(n):
@@ -140,7 +140,7 @@ class Optimization:
         print('f(x) = ', self.function(u))
         print('iterations = ', iterations)
 
-    def brent(self):
+    def calculate_brent(self):
         a = self.a
         b = self.b
         calls = 0
@@ -151,11 +151,12 @@ class Optimization:
         fw = self.function(x)
         fv = self.function(x)
         calls += 3
+
         while max(abs(x - a), abs(b - x)) >= self.epsilon:
             g = e / 2
             e = d
             u = self.u(x, w, v, fx, fw, fv)
-            if u == 'pass':
+            if u is None:
                 if x >= (a + b) / 2:
                     u = x - self.ratio * (x - a)
                     e = x - a
@@ -205,4 +206,4 @@ optimization.calculate_dichotomy()
 optimization.calculate_golden_ratio()
 optimization.calculate_fibonacci(27)
 optimization.calculate_parabola()
-optimization.brent()
+optimization.calculate_brent()
