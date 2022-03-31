@@ -16,19 +16,19 @@ class Optimization:
         n1 = 0
         n2 = 1
         sequence = []
-        k = 0
-        while k < n:
+        iterations = 0
+        while iterations < n:
             sequence.append(n1)
             nth = n1 + n2
             n1 = n2
             n2 = nth
-            k += 1
+            iterations += 1
         return sequence
 
     def calculate_dichotomy(self):
         a = self.a
         b = self.b
-        n = 0
+        iterations = 0
         while (b - a) / 2 > self.epsilon:
             x1 = (a + b) / 2 - self.epsilon / 2
             x2 = (a + b) / 2 + self.epsilon / 2
@@ -39,14 +39,14 @@ class Optimization:
             else:
                 a = x1
                 b = x2
-            n = n + 1
+            iterations += 1
         x = (a + b) / 2
         print('x = ', x)
         print('f(x) = ', self.function(x))
-        print('n = ', n)
+        print('iterations = ', iterations)
 
     def calculate_golden_ratio(self):
-        n = 0
+        iterations = 0
         a = self.a
         b = self.b
         x1 = a + (b - a) * self.ratio
@@ -66,11 +66,11 @@ class Optimization:
                 x2 = b - (b - a) * self.ratio
                 f1 = f2
                 f2 = self.function(x2)
-            n = n + 1
+            iterations += 1
         x = (a + b) / 2
         print('x = ', x)
         print('f(x) = ', self.function(x))
-        print('n = ', n)
+        print('iterations = ', iterations)
 
     def calculate_fibonacci(self, n):
         a = self.a
@@ -80,7 +80,7 @@ class Optimization:
         x2 = a + (b - a) * (sequence[n-2]/sequence[n-1])
         f1 = self.function(x1)
         f2 = self.function(x2)
-        count = 0
+        iterations = 0
         while n > 0:
             n -= 1
             if f1 < f2:
@@ -95,18 +95,18 @@ class Optimization:
                 x2 = b - (x1 - a)
                 f1 = f2
                 f2 = self.function(x2)
-            count = count + 1
+            iterations += 1
         x = (a + b) / 2
         print('x = ', x)
         print('f(x) = ', self.function(x))
-        print('n = ', count)
+        print('iterations = ', iterations)
 
     def calculate_parabola(self):
         x1 = self.a
         x3 = self.b
         x2 = (x3 - x1) / 2
         x_i = 0
-        n = 0
+        iterations = 0
         f1 = self.function(x1)
         f2 = self.function(x2)
         f3 = self.function(x3)
@@ -133,11 +133,11 @@ class Optimization:
             if abs(x_i - u) < self.epsilon:
                 break
             x_i = u
-            n += 1
+            iterations += 1
 
         print('x = ', u)
         print('f(x) = ', self.function(u))
-        print('n = ', n)
+        print('iterations = ', iterations)
 
 
 optimization = Optimization(lambda x: sin(x) * x ** 2, -3, -1, 1e-5)
