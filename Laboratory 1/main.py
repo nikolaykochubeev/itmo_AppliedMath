@@ -11,25 +11,19 @@ class Optimization:
         self.epsilon = epsilon
 
     def calculate_dichotomy(self):
-        n = 0
         a = self.a
         b = self.b
-        f1 = self.function(a)
-        f2 = self.function(b)
+        n = 0
         while (b - a) / 2 > self.epsilon:
             x1 = (a + b) / 2 - self.epsilon / 2
             x2 = (a + b) / 2 + self.epsilon / 2
-            if f1 < f2:
+            if self.function(a) < self.function(b):
                 b = x2
-                f2 = self.function(b)
-            elif f1 > f2:
+            elif self.function(a) > self.function(b):
                 a = x1
-                f1 = self.function(a)
             else:
                 a = x1
                 b = x2
-                f1 = self.function(a)
-                f2 = self.function(b)
             n = n + 1
         x = (a + b) / 2
         print('x = ', x)
@@ -74,7 +68,7 @@ class Optimization:
         f3 = self.function(x3)
         while True:
             u = x2 - ((x2 - x1) ** 2 * (f2 - f3) - (x2 - x3) ** 2 * (f2 - f1)) / (
-                    (x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))
+                    2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1)))
             fu = self.function(u)
             if fu <= f2:
                 if u >= x2:
