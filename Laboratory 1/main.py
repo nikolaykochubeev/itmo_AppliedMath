@@ -9,7 +9,8 @@ class Optimization:
         self.epsilon = epsilon
         self.ratio = 0.38196601125
         self.u = lambda x1, x2, x3, f1, f2, f3: x2 - ((x2 - x1) ** 2 * (f2 - f3) - (x2 - x3) ** 2 * (f2 - f1)) / (
-                2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1)))
+                2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) if (
+                2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) != 0 else 'pass'
 
     @staticmethod
     def get_fibonacci_sequence(n):
@@ -139,9 +140,74 @@ class Optimization:
         print('f(x) = ', self.function(u))
         print('iterations = ', iterations)
 
+        # Всё нормально
+    def brent(self):
+        a = self.a
+        b = self.b
+        calls = 0
+        iterations = 0
+        x = w = v = a + self.ratio * (b - a)
+        d = e = b - a
+        fx = self.function(x)
+        fw = self.function(x)
+        fv = self.function(x)
+        calls += 3
+        while max(abs(x - a), abs(b - x)) >= self.epsilon:
+            g = e / 2
+            e = d
+            u = self.u(x, w, v, fx, fw, fv)
+            if u == 'pass':
+                if x >= (a + b) / 2:
+                    u = x - self.ratio * (x - a)
+                    e = x - a
+                else:
+                    u = x + self.ratio * (b - x)
+                    e = b - x
+
+            d = abs(u - x)
+            fu = self.function(u)
+            calls += 1
+            if fu > fx:
+                if u >= x:
+                    b = u
+                else:
+                    a = u
+                if fu <= fw or w == x:
+                    fv = fw
+                    v = w
+                    w = u
+                    fw = fu
+                else:
+                    if fu <= fv or x == v or v == w:
+                        v = u
+                        fv = fu
+            else:
+                if u >= x:
+                    a = x
+                else:
+                    b = x
+
+            fv = fw
+            fw = fx
+            fx = fu
+            v = w
+            w = x
+            x = u
+            iterations += 1
+
+        # print('----')
+        # print('----')
+
+        print('x = ', x)
+        print('f(x) = ', self.function(x))
+        print('iterations = ', iterations)
+        print('calls = ', calls)
+
+
 
 optimization = Optimization(lambda x: sin(x) * x ** 2, -3, -1, 1e-5)
 optimization.calculate_dichotomy()
 optimization.calculate_golden_ratio()
 optimization.calculate_fibonacci(27)
 optimization.calculate_parabola()
+optimization.brent()
