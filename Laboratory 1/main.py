@@ -98,8 +98,8 @@ class Optimization:
         prev_length = b - a
         iterations = 0
         while (b - a) / 2 > self.epsilon:
-            x1 = (a + b) / 2 - self.epsilon / 2
-            x2 = (a + b) / 2 + self.epsilon / 2
+            x1 = (a + b) / 2 - self.epsilon / 3
+            x2 = (a + b) / 2 + self.epsilon / 3
             if self.function(a) < self.function(b):
                 b = x2
             elif self.function(a) > self.function(b):
