@@ -40,14 +40,39 @@ class Optimization:
             parabola_iterations.append(optimization.calculate_parabola())
             brent_iterations.append(optimization.calculate_brent())
         epsilons = [abs(log(i)) for i in self.epsilons]
+
+        plt.title("dichotomy method")
+        plt.xlabel("Epsilons")
+        plt.ylabel("Iterations")
+        plt.grid()
         plt.plot(epsilons, dichotomy_iterations)
         plt.show()
+
+        plt.title("golden ratio method")
+        plt.xlabel("Epsilons")
+        plt.ylabel("Iterations")
+        plt.grid()
         plt.plot(epsilons, golden_ratio_iterations)
         plt.show()
+
+        plt.title("fibonacci method")
+        plt.xlabel("Epsilons")
+        plt.ylabel("Iterations")
+        plt.grid()
         plt.plot(epsilons, fibonacci_iterations)
         plt.show()
+
+        plt.title("parabola method")
+        plt.xlabel("Epsilons")
+        plt.ylabel("Iterations")
+        plt.grid()
         plt.plot(epsilons, parabola_iterations)
         plt.show()
+
+        plt.title("brent method")
+        plt.xlabel("Epsilons")
+        plt.ylabel("Iterations")
+        plt.grid()
         plt.plot(epsilons, brent_iterations)
         plt.show()
         self.epsilon = true_epsilon
