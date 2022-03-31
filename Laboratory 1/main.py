@@ -111,10 +111,11 @@ class Optimization:
         f1 = self.function(x1)
         f2 = self.function(x2)
         f3 = self.function(x3)
-        # u = self.u(x1, x2, x3, f1, f2, f3)
-        while True:
-            u = self.u(x1, x2, x3, f1, f2, f3)
-            fu = self.function(u)
+        u = self.u(x1, x2, x3, f1, f2, f3)
+        fu = self.function(u)
+        while abs(x_i - u) >= self.epsilon:
+            x_i = u
+            iterations += 1
             if fu <= f2:
                 if u >= x2:
                     x1 = x2
@@ -131,10 +132,8 @@ class Optimization:
                 else:
                     x1 = u
                     f1 = fu
-            if abs(x_i - u) < self.epsilon:
-                break
-            x_i = u
-            iterations += 1
+            u = self.u(x1, x2, x3, f1, f2, f3)
+            fu = self.function(u)
 
         print('x = ', u)
         print('f(x) = ', self.function(u))
