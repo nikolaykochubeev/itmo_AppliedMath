@@ -19,6 +19,9 @@ class Optimization:
     def plot_function(self):
         vectorize_function = np.vectorize(self.function)
         array = np.linspace(self.a, self.b, 100)
+        plt.title("sin(x) * x ** 2")
+        plt.xlabel("X axis")
+        plt.ylabel("Y axis")
         plt.grid()
         plt.plot(array, vectorize_function(array))
         plt.show()
