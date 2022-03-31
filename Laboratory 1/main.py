@@ -9,6 +9,7 @@ class Optimization:
         self.a = a
         self.b = b
         self.epsilon = epsilon
+        self.ratio = 0.38196601125
 
     def calculate_dichotomy(self):
         a = self.a
@@ -34,21 +35,21 @@ class Optimization:
         n = 0
         a = self.a
         b = self.b
-        x1 = b - (b - a) / 1.618
-        x2 = a + (b - a) / 1.618
+        x1 = a + (b - a) * self.ratio
+        x2 = b - (b - a) * self.ratio
         f1 = self.function(x1)
         f2 = self.function(x2)
         while (x2 - x1) / 2 > self.epsilon:
             if f1 < f2:
                 b = x2
                 x2 = x1
-                x1 = a + (b - x2)
+                x1 = a + (b - a) * self.ratio
                 f2 = f1
                 f1 = self.function(x1)
             else:
                 a = x1
                 x1 = x2
-                x2 = b - (x1 - a)
+                x2 = b - (b - a) * self.ratio
                 f1 = f2
                 f2 = self.function(x2)
             n = n + 1
