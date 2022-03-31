@@ -182,7 +182,7 @@ class Optimization:
         iterations = 0
         x = w = v = a + self.ratio * (b - a)
         d = e = b - a
-        prev_length = a - b
+        prev_length = 1
         fx = self.function(x)
         fw = self.function(x)
         fv = self.function(x)
@@ -228,15 +228,18 @@ class Optimization:
             x = u
             iterations += 1
 
+            print(iterations, ':  ', b - a, ' ', (b - a) / prev_length)
+            prev_length = b - a
+
         print('x = ', x)
         print('f(x) = ', self.function(x))
         print('iterations = ', iterations, '\n')
 
 
 optimization = Optimization(lambda x: sin(x) * x ** 2, -3, -1, 1e-5)
-# optimization.calculate_dichotomy()
-# optimization.calculate_golden_ratio()
-# optimization.calculate_fibonacci(25)
-# optimization.calculate_parabola()
-# optimization.calculate_brent()
+optimization.calculate_dichotomy()
+optimization.calculate_golden_ratio()
+optimization.calculate_fibonacci(25)
+optimization.calculate_parabola()
+optimization.calculate_brent()
 optimization.plot_function()
