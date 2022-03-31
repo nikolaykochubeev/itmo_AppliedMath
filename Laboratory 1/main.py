@@ -1,5 +1,8 @@
 from math import sin
 
+import numpy as np
+from matplotlib import pyplot as plt
+
 
 class Optimization:
     def __init__(self, function, a, b, epsilon):
@@ -12,6 +15,13 @@ class Optimization:
                 2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) \
             if (2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) != 0 \
             else None
+
+    def plot_function(self):
+        vectorize_function = np.vectorize(self.function)
+        array = np.linspace(self.a, self.b, 100)
+        plt.grid()
+        plt.plot(array, vectorize_function(array))
+        plt.show()
 
     @staticmethod
     def get_fibonacci_sequence(n):
@@ -221,8 +231,9 @@ class Optimization:
 
 
 optimization = Optimization(lambda x: sin(x) * x ** 2, -3, -1, 1e-5)
-optimization.calculate_dichotomy()
-optimization.calculate_golden_ratio()
-optimization.calculate_fibonacci(25)
-optimization.calculate_parabola()
-optimization.calculate_brent()
+# optimization.calculate_dichotomy()
+# optimization.calculate_golden_ratio()
+# optimization.calculate_fibonacci(25)
+# optimization.calculate_parabola()
+# optimization.calculate_brent()
+optimization.plot_function()
