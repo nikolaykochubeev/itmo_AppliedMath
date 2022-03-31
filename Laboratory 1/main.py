@@ -9,8 +9,9 @@ class Optimization:
         self.epsilon = epsilon
         self.ratio = 0.38196601125
         self.u = lambda x1, x2, x3, f1, f2, f3: x2 - ((x2 - x1) ** 2 * (f2 - f3) - (x2 - x3) ** 2 * (f2 - f1)) / (
-                2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) if (
-                2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) != 0 else 'pass'
+                2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) \
+            if (2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) != 0 \
+            else 'pass'
 
     @staticmethod
     def get_fibonacci_sequence(n):
@@ -77,8 +78,8 @@ class Optimization:
         a = self.a
         b = self.b
         sequence = self.get_fibonacci_sequence(n)
-        x1 = a + (b - a) * (sequence[n-3]/sequence[n-1])
-        x2 = a + (b - a) * (sequence[n-2]/sequence[n-1])
+        x1 = a + (b - a) * (sequence[n - 3] / sequence[n - 1])
+        x2 = a + (b - a) * (sequence[n - 2] / sequence[n - 1])
         f1 = self.function(x1)
         f2 = self.function(x2)
         iterations = 0
@@ -139,7 +140,6 @@ class Optimization:
         print('f(x) = ', self.function(u))
         print('iterations = ', iterations)
 
-        # Всё нормально
     def brent(self):
         a = self.a
         b = self.b
@@ -194,14 +194,10 @@ class Optimization:
             x = u
             iterations += 1
 
-        # print('----')
-        # print('----')
-
         print('x = ', x)
         print('f(x) = ', self.function(x))
         print('iterations = ', iterations)
         print('calls = ', calls)
-
 
 
 optimization = Optimization(lambda x: sin(x) * x ** 2, -3, -1, 1e-5)
