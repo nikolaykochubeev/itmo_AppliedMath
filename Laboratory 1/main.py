@@ -31,6 +31,7 @@ class Optimization:
         fibonacci_iterations = []
         parabola_iterations = []
         brent_iterations = []
+        true_epsilon = self.epsilon
         for epsilon in self.epsilons:
             self.epsilon = epsilon
             dichotomy_iterations.append(optimization.calculate_dichotomy())
@@ -49,6 +50,7 @@ class Optimization:
         plt.show()
         plt.plot(epsilons, brent_iterations)
         plt.show()
+        self.epsilon = true_epsilon
 
     @staticmethod
     def get_fibonacci_sequence(n):
