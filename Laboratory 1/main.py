@@ -10,7 +10,7 @@ class Optimization:
         self.a = a
         self.b = b
         self.epsilon = epsilon
-        self.epsilons = [10e-5, 10e-4, 10e-3, 10e-2, 10e-1]
+        self.epsilons = [1e-5, 1e-4, 1e-3, 1e-2, 1e-1]
         self.ratio = 0.61803398874
         self.u = lambda x1, x2, x3, f1, f2, f3: x2 - ((x2 - x1) ** 2 * (f2 - f3) - (x2 - x3) ** 2 * (f2 - f1)) / (
                 2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) \
@@ -84,11 +84,10 @@ class Optimization:
             print(iterations, ': ', b - a, ' ', (b - a) / prev_length)
             prev_length = b - a
         x = (a + b) / 2
-        print(x)
+        print('x = ', x)
+        print('f(x) = ', self.function(x))
+        print('iterations = ', iterations, '\n')
         return iterations
-        # print('x = ', x)
-        # print('f(x) = ', self.function(x))
-        # print('iterations = ', iterations, '\n')
 
     def calculate_golden_ratio(self):
         print('golden ratio method')
@@ -117,11 +116,10 @@ class Optimization:
             print(iterations, ': ', b - a, ' ', (b - a) / prev_length)
             prev_length = b - a
         x = (a + b) / 2
-        print(x)
+        print('x = ', x)
+        print('f(x) = ', self.function(x))
+        print('iterations = ', iterations, '\n')
         return iterations
-        # print('x = ', x)
-        # print('f(x) = ', self.function(x))
-        # print('iterations = ', iterations, '\n')
 
     def calculate_fibonacci(self, n):
         print('fibonacci method')
@@ -152,11 +150,10 @@ class Optimization:
             print(iterations, ': ', b - a, ' ', (b - a) / prev_length)
             prev_length = b - a
         x = (a + b) / 2
-        print(x)
+        print('x = ', x)
+        print('f(x) = ', self.function(x))
+        print('iterations = ', iterations, '\n')
         return iterations
-        # print('x = ', x)
-        # print('f(x) = ', self.function(x))
-        # print('iterations = ', iterations, '\n')
 
     def calculate_parabola(self):
         print('parabola method')
@@ -176,35 +173,29 @@ class Optimization:
             iterations += 1
             if fu <= f2:
                 if u >= x2:
-                    print(iterations, ':  ', u - x2, ' ', (u - x2) / prev_length)
-                    prev_length = u - x2
                     x1 = x2
                     f1 = f2
                 else:
-                    print(iterations, ':  ', x3 - u, ' ', (x3 - u) / prev_length)
-                    prev_length = x3 - u
                     x3 = x2
                     f3 = f2
                 x2 = u
                 f2 = fu
             else:
                 if x2 < u:
-                    print(iterations, ':  ', u - x2, ' ', (u - x2) / prev_length)
-                    prev_length = u - x2
                     x3 = u
                     f3 = fu
                 else:
-                    print(iterations, ':  ', x3 - u, ' ', (x3 - u) / prev_length)
-                    prev_length = x3 - u
                     x1 = u
                     f1 = fu
+            print(iterations, ':  ', x3 - x1, ' ', (x3 - x1) / prev_length)
+            prev_length = x3 - x1
             u = self.u(x1, x2, x3, f1, f2, f3)
             fu = self.function(u)
-        print(u)
+
+        print('x = ', u)
+        print('f(x) = ', self.function(u))
+        print('iterations = ', iterations, '\n')
         return iterations
-        # print('x = ', u)
-        # print('f(x) = ', self.function(u))
-        # print('iterations = ', iterations, '\n')
 
     def calculate_brent(self):
         print('brent combined method')
@@ -213,7 +204,7 @@ class Optimization:
         iterations = 0
         x = w = v = a + self.ratio * (b - a)
         d = e = b - a
-        prev_length = a - b
+        prev_length = 1
         fx = self.function(x)
         fw = self.function(x)
         fv = self.function(x)
@@ -258,17 +249,20 @@ class Optimization:
             w = x
             x = u
             iterations += 1
-        print(x)
+
+            print(iterations, ':  ', b - a, ' ', (b - a) / prev_length)
+            prev_length = b - a
+
+        print('x = ', x)
+        print('f(x) = ', self.function(x))
+        print('iterations = ', iterations, '\n')
         return iterations
-        # print('x = ', x)
-        # print('f(x) = ', self.function(x))
-        # print('iterations = ', iterations, '\n')
 
 
 optimization = Optimization(lambda x: sin(x) * x ** 2, -3, -1, 1e-5)
 optimization.plot()
-# optimization.calculate_dichotomy()
-# optimization.calculate_golden_ratio()
-# optimization.calculate_fibonacci(25)
-# optimization.calculate_parabola()
-# optimization.calculate_brent()
+optimization.calculate_dichotomy()
+optimization.calculate_golden_ratio()
+optimization.calculate_fibonacci(25)
+optimization.calculate_parabola()
+optimization.calculate_brent()
