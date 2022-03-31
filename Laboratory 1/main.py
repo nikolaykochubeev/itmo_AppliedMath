@@ -7,7 +7,7 @@ class Optimization:
         self.a = a
         self.b = b
         self.epsilon = epsilon
-        self.ratio = 0.38196601125
+        self.ratio = 0.61803398874
         self.u = lambda x1, x2, x3, f1, f2, f3: x2 - ((x2 - x1) ** 2 * (f2 - f3) - (x2 - x3) ** 2 * (f2 - f1)) / (
                 2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) \
             if (2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1))) != 0 \
@@ -57,21 +57,21 @@ class Optimization:
         b = self.b
         prev_length = b - a
         iterations = 0
-        x1 = a + (b - a) * self.ratio
-        x2 = b - (b - a) * self.ratio
+        x1 = b - (b - a) * self.ratio
+        x2 = a + (b - a) * self.ratio
         f1 = self.function(x1)
         f2 = self.function(x2)
         while (x2 - x1) / 2 > self.epsilon:
             if f1 < f2:
                 b = x2
                 x2 = x1
-                x1 = a + (b - a) * self.ratio
+                x1 = b - (b - a) * self.ratio
                 f2 = f1
                 f1 = self.function(x1)
             else:
                 a = x1
                 x1 = x2
-                x2 = b - (b - a) * self.ratio
+                x2 = a + (b - a) * self.ratio
                 f1 = f2
                 f2 = self.function(x2)
             iterations += 1
