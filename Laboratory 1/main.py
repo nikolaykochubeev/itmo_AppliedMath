@@ -11,6 +11,20 @@ class Optimization:
         self.u = lambda x1, x2, x3, f1, f2, f3: x2 - ((x2 - x1) ** 2 * (f2 - f3) - (x2 - x3) ** 2 * (f2 - f1)) / (
                 2 * ((x2 - x1) * (f2 - f3) - (x2 - x3) * (f2 - f1)))
 
+    @staticmethod
+    def get_fibonacci_sequence(n):
+        n1 = 0
+        n2 = 1
+        sequence = []
+        k = 0
+        while k < n:
+            sequence.append(n1)
+            nth = n1 + n2
+            n1 = n2
+            n2 = nth
+            k += 1
+        return sequence
+
     def calculate_dichotomy(self):
         a = self.a
         b = self.b
@@ -58,6 +72,35 @@ class Optimization:
         print('f(x) = ', self.function(x))
         print('n = ', n)
 
+    def calculate_fibonacci(self, n):
+        a = self.a
+        b = self.b
+        sequence = self.get_fibonacci_sequence(n)
+        x1 = a + (b - a) * (sequence[n-3]/sequence[n-1])
+        x2 = a + (b - a) * (sequence[n-2]/sequence[n-1])
+        f1 = self.function(x1)
+        f2 = self.function(x2)
+        count = 0
+        while n > 0:
+            n -= 1
+            if f1 < f2:
+                b = x2
+                x2 = x1
+                x1 = a + (b - x2)
+                f2 = f1
+                f1 = self.function(x1)
+            else:
+                a = x1
+                x1 = x2
+                x2 = b - (x1 - a)
+                f1 = f2
+                f2 = self.function(x2)
+            count = count + 1
+        x = (a + b) / 2
+        print('x = ', x)
+        print('f(x) = ', self.function(x))
+        print('n = ', count)
+
     def calculate_parabola(self):
         x1 = self.a
         x3 = self.b
@@ -97,7 +140,8 @@ class Optimization:
         print('n = ', n)
 
 
-optimization = Optimization(lambda x: sin(x) * x ** 2, -3, -2, 1e-5)
+optimization = Optimization(lambda x: sin(x) * x ** 2, -3, -1, 1e-5)
 optimization.calculate_dichotomy()
 optimization.calculate_golden_ratio()
+optimization.calculate_fibonacci(27)
 optimization.calculate_parabola()
