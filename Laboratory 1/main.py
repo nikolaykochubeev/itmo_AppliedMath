@@ -143,14 +143,12 @@ class Optimization:
     def calculate_brent(self):
         a = self.a
         b = self.b
-        calls = 0
         iterations = 0
         x = w = v = a + self.ratio * (b - a)
         d = e = b - a
         fx = self.function(x)
         fw = self.function(x)
         fv = self.function(x)
-        calls += 3
 
         while max(abs(x - a), abs(b - x)) >= self.epsilon:
             g = e / 2
@@ -166,7 +164,6 @@ class Optimization:
 
             d = abs(u - x)
             fu = self.function(u)
-            calls += 1
             if fu > fx:
                 if u >= x:
                     b = u
@@ -198,7 +195,6 @@ class Optimization:
         print('x = ', x)
         print('f(x) = ', self.function(x))
         print('iterations = ', iterations)
-        print('calls = ', calls)
 
 
 optimization = Optimization(lambda x: sin(x) * x ** 2, -3, -1, 1e-5)
