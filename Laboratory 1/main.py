@@ -36,7 +36,7 @@ class Optimization:
             self.epsilon = epsilon
             dichotomy_iterations.append(optimization.calculate_dichotomy())
             golden_ratio_iterations.append(optimization.calculate_golden_ratio())
-            fibonacci_iterations.append(optimization.calculate_fibonacci(25))
+            fibonacci_iterations.append(optimization.calculate_fibonacci(27))
             parabola_iterations.append(optimization.calculate_parabola())
             brent_iterations.append(optimization.calculate_brent())
         epsilons = [abs(log(i)) for i in self.epsilons]
