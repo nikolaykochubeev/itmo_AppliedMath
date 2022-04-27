@@ -100,13 +100,10 @@ class Optimization:
         while (b - a) / 2 > self.epsilon:
             x1 = (a + b) / 2 - self.epsilon / 3
             x2 = (a + b) / 2 + self.epsilon / 3
-            if self.function(a) < self.function(b):
+            if self.function(x1) < self.function(x2):
                 b = x2
-            elif self.function(a) > self.function(b):
+            elif self.function(x1) > self.function(x2):
                 a = x1
-            else:
-                a = x1
-                b = x2
             iterations += 1
             print(iterations, ': ', b - a, ' ', (b - a) / prev_length)
             prev_length = b - a
