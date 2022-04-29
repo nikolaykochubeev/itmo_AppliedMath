@@ -260,9 +260,9 @@ def test(func, start_x, start_y, a, b, epsilon):
 
 
 if __name__ == '__main__':
-    #test(my_r2_func, -3.001, 3, -10, 10, 0.001)
-    #test(boot_func, -3.001, 3, -10, 10, 0.001)
-    #test(matyas_func, -3.001, 3, -10, 10, 0.001)
+    test(my_r2_func, -3.001, 3, -10, 10, 0.001)
+    # test(boot_func, -3.001, 3, -10, 10, 0.001)
+    # test(matyas_func, -3.001, 3, -10, 10, 0.001)
     # test(levi_func, 1, 5, -10, 10, 0.00001)
-    test(himmel_func, -1, 0, -5, 5, 0.001)
+    # test(himmel_func, -1, 0, -5, 5, 0.001)
     # test(bub_func, -3.001, 3, -10, 10, 0.001)
