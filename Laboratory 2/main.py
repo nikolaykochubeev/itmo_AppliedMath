@@ -1,5 +1,4 @@
 from numdifftools import Gradient
-import math
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -30,58 +29,56 @@ def get_fibonacci_sequence(n):
     return sequence
 
 
-class Optimization:
-    @staticmethod
-    def calculate_golden_ratio(func, x, y, grad_x, grad_y, a, b, epsilon):
-        one_dim_func = lambda param: func(x - grad_x * param, y - grad_y * param)
+def calculate_golden_ratio(func, x, y, grad_x, grad_y, a, b, epsilon):
+    one_dim_func = lambda param: func(x - grad_x * param, y - grad_y * param)
 
-        x1 = b - (b - a) * 0.61803398874
-        x2 = a + (b - a) * 0.61803398874
-        f1 = one_dim_func(x1)
-        f2 = one_dim_func(x2)
-        while (x2 - x1) / 2 > epsilon:
-            if f1 < f2:
-                b = x2
-                x2 = x1
-                x1 = b - (b - a) * 0.61803398874
-                f2 = f1
-                f1 = one_dim_func(x1)
-            else:
-                a = x1
-                x1 = x2
-                x2 = a + (b - a) * 0.61803398874
-                f1 = f2
-                f2 = one_dim_func(x2)
-        return (a + b) / 2
+    x1 = b - (b - a) * 0.61803398874
+    x2 = a + (b - a) * 0.61803398874
+    f1 = one_dim_func(x1)
+    f2 = one_dim_func(x2)
+    while (x2 - x1) / 2 > epsilon:
+        if f1 < f2:
+            b = x2
+            x2 = x1
+            x1 = b - (b - a) * 0.61803398874
+            f2 = f1
+            f1 = one_dim_func(x1)
+        else:
+            a = x1
+            x1 = x2
+            x2 = a + (b - a) * 0.61803398874
+            f1 = f2
+            f2 = one_dim_func(x2)
+    return (a + b) / 2
 
-    @staticmethod
-    def calculate_fibonacci(func, x, y, grad_x, grad_y, a, b, epsilon):
-        one_dim_func = lambda param: func(x - grad_x * param, y - grad_y * param)
 
-        n = 0
-        while get_fibonacci_sequence(n)[-1] <= (b - a) / epsilon:
-            n += 1
-        sequence = get_fibonacci_sequence(n)
+def calculate_fibonacci(func, x, y, grad_x, grad_y, a, b, epsilon):
+    one_dim_func = lambda param: func(x - grad_x * param, y - grad_y * param)
 
-        x1 = a + (b - a) * (sequence[n - 1] / sequence[n + 1])
-        x2 = a + (b - a) * (sequence[n] / sequence[n + 1])
-        f1 = one_dim_func(x1)
-        f2 = one_dim_func(x2)
-        while n > 0:
-            n -= 1
-            if f1 < f2:
-                b = x2
-                x2 = x1
-                x1 = a + (b - x2)
-                f2 = f1
-                f1 = one_dim_func(x1)
-            else:
-                a = x1
-                x1 = x2
-                x2 = b - (x1 - a)
-                f1 = f2
-                f2 = one_dim_func(x2)
-        return (x1 + x2) / 2
+    n = 0
+    while get_fibonacci_sequence(n)[-1] <= (b - a) / epsilon:
+        n += 1
+    sequence = get_fibonacci_sequence(n)
+
+    x1 = a + (b - a) * (sequence[n - 1] / sequence[n + 1])
+    x2 = a + (b - a) * (sequence[n] / sequence[n + 1])
+    f1 = one_dim_func(x1)
+    f2 = one_dim_func(x2)
+    while n > 0:
+        n -= 1
+        if f1 < f2:
+            b = x2
+            x2 = x1
+            x1 = a + (b - x2)
+            f2 = f1
+            f1 = one_dim_func(x1)
+        else:
+            a = x1
+            x1 = x2
+            x2 = b - (x1 - a)
+            f1 = f2
+            f2 = one_dim_func(x2)
+    return (x1 + x2) / 2
 
 
 def draw(a, b, func, points_x, points_y, name):
@@ -95,10 +92,8 @@ def draw(a, b, func, points_x, points_y, name):
     plt.show()
 
 
-funny_symbol_e = 0.25
-
-
 def gradient_descent(func, is_constant, x_start, y_start, a, b, epsilon):
+    funny_symbol_e = 0.25
     x, y = x_start, y_start
     x_next, y_next = x, y
     points_x = np.asarray([]).astype(float)
@@ -174,6 +169,8 @@ def steepest_descent(func, optimizer, x_start, y_start, a, b, epsilon):
 
 
 def conjugate_gradient(func, optimizer, x_start, y_start, a, b, epsilon):
+    prev_basis_x = 0
+    prev_basis_y = 0
     x, y = x_start, y_start
     x_next, y_next = x, y
     grad_norm, prev_grad_norm = 0, 0
@@ -238,11 +235,11 @@ def test(func, start_x, start_y, a, b, epsilon):
     # print(gradient_descent(func, True, start_x, start_y, a, b, epsilon))
     # print(gradient_descent(func, False, start_x, start_y, a, b, epsilon))
 
-    print(steepest_descent(func, Optimization.calculate_golden_ratio, start_x, start_y, a, b, epsilon))
-    print(steepest_descent(func, Optimization.calculate_fibonacci, start_x, start_y, a, b, epsilon))
+    print(steepest_descent(func, calculate_golden_ratio, start_x, start_y, a, b, epsilon))
+    print(steepest_descent(func, calculate_fibonacci, start_x, start_y, a, b, epsilon))
 
-    print(conjugate_gradient(func, Optimization.calculate_golden_ratio, start_x, start_y, a, b, epsilon))
-    print(conjugate_gradient(func, Optimization.calculate_fibonacci, start_x, start_y, a, b, epsilon))
+    print(conjugate_gradient(func, calculate_golden_ratio, start_x, start_y, a, b, epsilon))
+    print(conjugate_gradient(func, calculate_fibonacci, start_x, start_y, a, b, epsilon))
 
 
 if __name__ == '__main__':
