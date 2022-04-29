@@ -129,7 +129,7 @@ def gradient_descent(func, is_constant, x_start, y_start, a, b, epsilon):
         x = x_next
         y = y_next
 
-    print(k - 1)
+    print('k = ', k - 1)
     print('x = ', x, 'y = ', y)
     draw(a, b, func, points_x, points_y, 'метод градиентного спуска')
     return func(x, y)
@@ -164,7 +164,7 @@ def steepest_descent(func, optimizer, x_start, y_start, a, b, epsilon):
         x = x_next
         y = y_next
 
-    print(k - 1)
+    print('k = ', k - 1)
     print('x = ', x, 'y = ', y)
     draw(a, b, func, points_x, points_y, 'метод наискорейшего спуска')
     return func(x, y)
@@ -215,7 +215,7 @@ def conjugate_gradient(func, optimizer, x_start, y_start, a, b, epsilon):
         prev_basis_x, prev_basis_y = basis_x, basis_y
         prev_grad_norm = grad_norm
 
-    print(k - 1)
+    print('k = ', k - 1)
     print('x = ', x, 'y = ', y)
     draw(a, b, func, points_x, points_y, 'метод сопряжённых градиентов')
     return func(x, y)
@@ -249,20 +249,20 @@ def bub_func(x, y):
         -(((x + 4) ** 2 + (y + 4) ** 2) ** 2)) + 0.15 * np.exp(-(((x - 4) ** 2 + (y - 4) ** 2) ** 2)))
 
 def test(func, start_x, start_y, a, b, epsilon):
-    print(gradient_descent(func, True, start_x, start_y, a, b, epsilon))
-    print(gradient_descent(func, False, start_x, start_y, a, b, epsilon))
+    print('f = ', gradient_descent(func, True, start_x, start_y, a, b, epsilon))
+    print('f = ', gradient_descent(func, False, start_x, start_y, a, b, epsilon))
 
-    print(steepest_descent(func, calculate_golden_ratio, start_x, start_y, a, b, epsilon))
-    print(steepest_descent(func, calculate_fibonacci, start_x, start_y, a, b, epsilon))
+    print('f = ', steepest_descent(func, calculate_golden_ratio, start_x, start_y, a, b, epsilon))
+    print('f = ', steepest_descent(func, calculate_fibonacci, start_x, start_y, a, b, epsilon))
 
-    print(conjugate_gradient(func, calculate_golden_ratio, start_x, start_y, a, b, epsilon))
-    print(conjugate_gradient(func, calculate_fibonacci, start_x, start_y, a, b, epsilon))
+    print('f = ', conjugate_gradient(func, calculate_golden_ratio, start_x, start_y, a, b, epsilon))
+    print('f = ', conjugate_gradient(func, calculate_fibonacci, start_x, start_y, a, b, epsilon))
 
 
 if __name__ == '__main__':
-    # test(my_r2_func, -3.001, 3, -10, 10, 0.001)
-    # test(boot_func, -3.001, 3, -10, 10, 0.001)
-    # test(matyas_func, -3.001, 3, -10, 10, 0.001)
+    #test(my_r2_func, -3.001, 3, -10, 10, 0.001)
+    #test(boot_func, -3.001, 3, -10, 10, 0.001)
+    #test(matyas_func, -3.001, 3, -10, 10, 0.001)
     # test(levi_func, 1, 5, -10, 10, 0.00001)
     test(himmel_func, -1, 0, -5, 5, 0.001)
     # test(bub_func, -3.001, 3, -10, 10, 0.001)
