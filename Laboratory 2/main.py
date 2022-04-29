@@ -130,6 +130,7 @@ def gradient_descent(func, is_constant, x_start, y_start, a, b, epsilon):
         y = y_next
 
     print(k - 1)
+    print('x = ', x, 'y = ', y)
     draw(a, b, func, points_x, points_y, 'метод градиентного спуска')
     return func(x, y)
 
@@ -164,6 +165,7 @@ def steepest_descent(func, optimizer, x_start, y_start, a, b, epsilon):
         y = y_next
 
     print(k - 1)
+    print('x = ', x, 'y = ', y)
     draw(a, b, func, points_x, points_y, 'метод наискорейшего спуска')
     return func(x, y)
 
@@ -214,26 +216,41 @@ def conjugate_gradient(func, optimizer, x_start, y_start, a, b, epsilon):
         prev_grad_norm = grad_norm
 
     print(k - 1)
+    print('x = ', x, 'y = ', y)
     draw(a, b, func, points_x, points_y, 'метод сопряжённых градиентов')
     return func(x, y)
 
 
 def my_r2_func(x, y):
+    return 5 * x ** 2 + 7 * y ** 2
+
+
+def boot_func(x, y):
+    return (x + 2 * y - 7) ** 2 + (2 * x + y - 5) ** 2
+
+
+def matyas_func(x, y):
+    return 0.26 * (x ** 2 + y ** 2) - 0.48 * x * y
+
+
+def levi_func(x, y):
+    return ((np.sin(3. * np.pi * x)) ** 2.) \
+           + ((x - 1.) ** 2.) * (1. + (np.sin(3. * np.pi * y)) ** 2.) \
+           + ((y - 1.) ** 2.) * (1. + (np.sin(2. * np.pi * y)) ** 2.)
+
+
+def himmel_func(x, y):
+    return (x ** 2 + y - 11) ** 2 + (x + y ** 2 - 7) ** 2
+
+
+def bub_func(x, y):
     return -(np.exp((-(((x - 4) ** 2 + (y - 4) ** 2) ** 2)) / 1000) + np.exp(
         (-(((x + 4) ** 2 + (y + 4) ** 2) ** 2)) / 1000) + 0.15 * np.exp(
         -(((x + 4) ** 2 + (y + 4) ** 2) ** 2)) + 0.15 * np.exp(-(((x - 4) ** 2 + (y - 4) ** 2) ** 2)))
-    # return (x1 ** 2 + x2 - 11) ** 2 + (x1 + x2 ** 2 - 7) ** 2
-    # return ((np.sin(3. * np.pi * x1)) ** 2.)\
-    #        + ((x1 - 1.) ** 2.) * (1. + (np.sin(3. * np.pi * x2)) ** 2.)\
-    #        + ((x2 - 1.) ** 2.) * (1. + (np.sin(2. * np.pi * x2)) ** 2.)
-    # return 0.26 * (x1 ** 2 + x2 ** 2) - 0.48 * x1 * x2
-    # return (x1 + 2 * x2 - 7) ** 2 + (2 * x1 + x2 - 5) ** 2
-    # return 5 * x1 ** 2 + 73 * x2 ** 2
-
 
 def test(func, start_x, start_y, a, b, epsilon):
-    # print(gradient_descent(func, True, start_x, start_y, a, b, epsilon))
-    # print(gradient_descent(func, False, start_x, start_y, a, b, epsilon))
+    print(gradient_descent(func, True, start_x, start_y, a, b, epsilon))
+    print(gradient_descent(func, False, start_x, start_y, a, b, epsilon))
 
     print(steepest_descent(func, calculate_golden_ratio, start_x, start_y, a, b, epsilon))
     print(steepest_descent(func, calculate_fibonacci, start_x, start_y, a, b, epsilon))
@@ -243,4 +260,9 @@ def test(func, start_x, start_y, a, b, epsilon):
 
 
 if __name__ == '__main__':
-    test(my_r2_func, -3.001, 3, -10, 10, 0.001)
+    # test(my_r2_func, -3.001, 3, -10, 10, 0.001)
+    # test(boot_func, -3.001, 3, -10, 10, 0.001)
+    # test(matyas_func, -3.001, 3, -10, 10, 0.001)
+    # test(levi_func, 1, 5, -10, 10, 0.00001)
+    test(himmel_func, -1, 0, -5, 5, 0.001)
+    # test(bub_func, -3.001, 3, -10, 10, 0.001)
