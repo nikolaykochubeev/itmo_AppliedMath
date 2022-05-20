@@ -171,60 +171,60 @@ def solve_systems(generator, solver, k):
         print("k =", i, "\terror =", round(error, 5), "\tconditional number =", conditional_number, "\nx' =", *x_new)
 
 
-# matrixA = np.array([[9.2, 2.5, -3.7],
-#               [0.9, 9.0, 0.2],
-#               [4.5, -1.6, -10.3],
-#               ])
-# B = np.array([-17.5, 4.4, -22.1])
-# print("Matrix matrixA")
-# print_matrix(matrixA)
-# print("Matrix B")
-# print_matrix(B)
-#
-# X = solution(matrixA, B)
-# print("Matrix X")
-# print_matrix(X)
-# print("Matrix matrixA * X")
-# B1 = np.dot(matrixA, X)
-# print_matrix(B1)
+if __name__ == '__main__':
+    # matrixA = np.array([[9.2, 2.5, -3.7],
+    #               [0.9, 9.0, 0.2],
+    #               [4.5, -1.6, -10.3],
+    #               ])
+    # B = np.array([-17.5, 4.4, -22.1])
+    # print("Matrix matrixA")
+    # print_matrix(matrixA)
+    # print("Matrix B")
+    # print_matrix(B)
+    #
+    # X = solution(matrixA, B)
+    # print("Matrix X")
+    # print_matrix(X)
+    # print("Matrix matrixA * X")
+    # B1 = np.dot(matrixA, X)
+    # print_matrix(B1)
 
+    # A = np.array([
+    #     [6, -3, 5, 0, 2, 0, 0],
+    #     [-4, 0, 7, -3, 0, 2, 0],
+    #     [0, 9, -3, -6, 0, 7, 1],
+    #     [5, -2, 0, 0, 1, 7, -3],
+    #     [-1, 0, 0, 5, 0, 2, 0],
+    #     [9, -8, 7, 0, 2, 3, 0],
+    #     [3, 0, -4, 1, 9, 0, 5]
+    # ])
+    # B = np.array([3, 4, 7, 10, 12, 2, 23])
+    # L, U = LU_decomposition(A)
+    # print("Matrix matrixA")
+    # print_matrix(A)
+    # print("Matrix L")
+    # print_matrix(L.toarray())
+    # print("Matrix U")
+    # print_matrix(U.toarray())
+    # A1 = np.dot(L, U)
+    # print("Matrix L * U")
+    # print_matrix(A1.toarray())
+    # A_reverse = reverse(csr(A)).toarray()
+    # print("Reverse Matrix matrixA")
+    # print_matrix(A_reverse)
+    # print("Matrix E")
+    # E = np.dot(A, A_reverse)
+    # print_matrix(E)
+    # X = solve(A, B)
+    # print("Matrix matrixA")
+    # print_matrix(A)
+    # print("Matrix B")
+    # print_matrix(B)
+    # print("Matrix X")
+    # print_matrix(X)
+    # print("Matrix matrixA * X")
+    # B1 = np.dot(A, X)
+    # print_matrix(B1)
 
-A = np.array([
-    [6, -3, 5, 0, 2, 0, 0],
-    [-4, 0, 7, -3, 0, 2, 0],
-    [0, 9, -3, -6, 0, 7, 1],
-    [5, -2, 0, 0, 1, 7, -3],
-    [-1, 0, 0, 5, 0, 2, 0],
-    [9, -8, 7, 0, 2, 3, 0],
-    [3, 0, -4, 1, 9, 0, 5]
-])
-B = np.array([3, 4, 7, 10, 12, 2, 23])
-L, U = LU_decomposition(A)
-print("Matrix matrixA")
-print_matrix(A)
-print("Matrix L")
-print_matrix(L.toarray())
-print("Matrix U")
-print_matrix(U.toarray())
-A1 = np.dot(L, U)
-print("Matrix L * U")
-print_matrix(A1.toarray())
-A_reverse = reverse(csr(A)).toarray()
-print("Reverse Matrix matrixA")
-print_matrix(A_reverse)
-print("Matrix E")
-E = np.dot(A, A_reverse)
-print_matrix(E)
-X = solve(A, B)
-print("Matrix matrixA")
-print_matrix(A)
-print("Matrix B")
-print_matrix(B)
-print("Matrix X")
-print_matrix(X)
-print("Matrix matrixA * X")
-B1 = np.dot(A, X)
-print_matrix(B1)
-
-# solve_systems(generate_gilbert_matrix, solution, 14)
-# solve_systems(generate_diagonal_matrix, solution, 14)
+    solve_systems(generate_gilbert_matrix, solution, 14)
+    solve_systems(generate_diagonal_matrix, solution, 14)
