@@ -1,5 +1,4 @@
 import random
-
 import warnings
 from scipy.sparse import eye
 import numpy as np
@@ -8,10 +7,10 @@ from prettytable import PrettyTable
 from scipy.sparse import csr_matrix as csr
 
 
-def get_conditional_number(A):
-    A_reverse = reverse(A).todense()
-    A_reverse = np.squeeze(np.asarray(A_reverse))
-    return np.linalg.norm(A) * np.linalg.norm(A_reverse)
+def get_conditional_number(matrixA):
+    reverseA = reverse(matrixA).todense()
+    reverseA = np.squeeze(np.asarray(reverseA))
+    return np.linalg.norm(matrixA) * np.linalg.norm(reverseA)
 
 
 def LU_decomposition(A):
@@ -172,21 +171,21 @@ def solve_systems(generator, solver, k):
         print("k =", i, "\terror =", round(error, 5), "\tconditional number =", conditional_number, "\nx' =", *x_new)
 
 
-# A = np.array([[9.2, 2.5, -3.7],
+# matrixA = np.array([[9.2, 2.5, -3.7],
 #               [0.9, 9.0, 0.2],
 #               [4.5, -1.6, -10.3],
 #               ])
 # B = np.array([-17.5, 4.4, -22.1])
-# print("Matrix A")
-# print_matrix(A)
+# print("Matrix matrixA")
+# print_matrix(matrixA)
 # print("Matrix B")
 # print_matrix(B)
 #
-# X = solution(A, B)
+# X = solution(matrixA, B)
 # print("Matrix X")
 # print_matrix(X)
-# print("Matrix A * X")
-# B1 = np.dot(A, X)
+# print("Matrix matrixA * X")
+# B1 = np.dot(matrixA, X)
 # print_matrix(B1)
 
 
@@ -201,7 +200,7 @@ A = np.array([
 ])
 B = np.array([3, 4, 7, 10, 12, 2, 23])
 L, U = LU_decomposition(A)
-print("Matrix A")
+print("Matrix matrixA")
 print_matrix(A)
 print("Matrix L")
 print_matrix(L.toarray())
@@ -211,19 +210,19 @@ A1 = np.dot(L, U)
 print("Matrix L * U")
 print_matrix(A1.toarray())
 A_reverse = reverse(csr(A)).toarray()
-print("Reverse Matrix A")
+print("Reverse Matrix matrixA")
 print_matrix(A_reverse)
 print("Matrix E")
 E = np.dot(A, A_reverse)
 print_matrix(E)
 X = solve(A, B)
-print("Matrix A")
+print("Matrix matrixA")
 print_matrix(A)
 print("Matrix B")
 print_matrix(B)
 print("Matrix X")
 print_matrix(X)
-print("Matrix A * X")
+print("Matrix matrixA * X")
 B1 = np.dot(A, X)
 print_matrix(B1)
 
