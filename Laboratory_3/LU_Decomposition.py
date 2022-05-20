@@ -1,7 +1,11 @@
+import warnings
 from scipy.sparse import csr_matrix as csr
 from scipy.sparse import eye
 
+
 def LU_decomposition(A):
+    warnings.filterwarnings("ignore", message="Changing the sparsity structure of a csr_matrix is expensive. "
+                                              "lil_matrix is more efficient.")
     n_rows, n_cols = A.shape
     L = eye(n_rows, n_cols, format="csr")
     U = csr((n_rows, n_cols), dtype=float)
@@ -18,4 +22,3 @@ def LU_decomposition(A):
                     _s += L[i, k] * U[k, j]
                 L[i, j] = (A[i, j] - _s) / U[j, j]
     return L, U
-
