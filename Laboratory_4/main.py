@@ -44,7 +44,7 @@ def stop_method(A, eps):
         for i in range(j):
             s += A[i, j] * A[i, j]
 
-    return np.square(1 / 2 * s) < eps
+    return s < eps
 
 
 def findMax(A):
@@ -152,7 +152,7 @@ def print_matrix_diagonal(A):
 
 
 def print_answer(A, A_new, X, error, conditional_number, iteration, k):
-    print("k =", k, "\terror =", round(error, 5), "\tconditional number =", conditional_number, "\titeration =",
+    print("Разамерность =", k, "\tОшибка =", round(error, 5), "\tЧисло обусловленности =", conditional_number, "\tКоличество итераций =",
           iteration)
     # print("Matrix A:")
     # print_matrix(A)
@@ -183,29 +183,25 @@ def solve_systems(k, generate, eps):
 
 
 # A = np.array([
-#     [4, 2, 1],
-#     [2, 5, 3],
-#     [1, 3, 6]
+#     [7, 1, 2],
+#     [3, 8, 4],
+#     [5, 6, 9]
 # ])
 #
-# A_new, X, error, iterations = Jacobi(A, 0.3)
-# print("Matrix A:")
+# A_new, X, error, iterations = Jacobi(A, 0.01)
+# print("Матрица A:")
 # print_matrix(A)
-# print("Eigenvalues А:")
+# print("Собственные значения А:")
 # print_vector(A_new)
-# print("eigenvector 1:")
+# print("Собственные вектора")
 # print_vector(X[0])
-# print("eigenvector 2:")
 # print_vector(X[1])
-# print("eigenvector 3:")
 # print_vector(X[2])
-# print("error = ", error)
-# print("iterations = ", iterations)
+# print("Ошибка = ", error)
+# print("Итерации = ", iterations)
 
 
-# generate_diagonal_matrix
-# generate_gilbert_matrix
-i, c = solve_systems(40, generate_diagonal_matrix, 0.00001)
+i, c = solve_systems(40, generate_diagonal_matrix, 0.000001)
 
 b = []
 for j in range(len(c)):
@@ -219,7 +215,7 @@ it = [k for k in range(i[-1])]
 
 arr = []
 for k in it:
-    arr.append(k ** (0.8 / avg) + 1.1)
+    arr.append(k ** (0.875 / avg) + 0.7)
 plt.plot(it, arr, color="red")
 
 arr = []
@@ -227,8 +223,8 @@ for k in it:
     arr.append(k ** (0.99 / avg))
 plt.plot(it, arr, color="green")
 plt.scatter(i, c)
-plt.xlabel("number of iteration")
-plt.ylabel("conditional number")
+plt.xlabel("Количество итераций")
+plt.ylabel("Число обусловленности")
 plt.grid(True)
 plt.show()
 exit()
