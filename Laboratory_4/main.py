@@ -44,7 +44,7 @@ def stop_method(A, eps):
         for i in range(j):
             s += A[i, j] * A[i, j]
 
-    return s < eps
+    return np.square(1 / 2 * s) < eps
 
 
 def findMax(A):
@@ -205,7 +205,7 @@ def solve_systems(k, generate, eps):
 
 # generate_diagonal_matrix
 # generate_gilbert_matrix
-i, c = solve_systems(40, generate_diagonal_matrix, 0.0001)
+i, c = solve_systems(40, generate_diagonal_matrix, 0.00001)
 
 b = []
 for j in range(len(c)):
@@ -214,11 +214,18 @@ for j in range(len(c)):
 # print(b)
 avg = np.average(b[len(c) // 2:])
 print(avg)
+
 it = [k for k in range(i[-1])]
+
 arr = []
 for k in it:
-    arr.append(k ** (1.0 / avg))
-plt.plot(it, arr)
+    arr.append(k ** (0.8 / avg) + 1.1)
+plt.plot(it, arr, color="red")
+
+arr = []
+for k in it:
+    arr.append(k ** (0.99 / avg))
+plt.plot(it, arr, color="green")
 plt.scatter(i, c)
 plt.xlabel("number of iteration")
 plt.ylabel("conditional number")
